@@ -1,0 +1,143 @@
+<!--  Code for sending messages between sockets was adapted from https://github.com/mmukhin/psitsmike_example_2-->
+<style>
+    .footer
+    {
+        height:30px;
+		margin: 0;
+		clear: both;
+		width:100%;
+		position: relative;
+    }
+</style>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script>
+	var socket = io.connect('http://localhost:3000');
+
+	var groupsInformation = {};
+
+	// on connection to server, ask for user's name with an anonymous callback
+	socket.on('connect', function(){
+		// call the server-side function 'adduser' and send one parameter (value of prompt)
+		socket.emit('adduser', prompt("What's your name?"));
+	});
+
+	// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('updatechat', function (username, data) {
+		$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
+	});
+
+	// listener, whenever the server emits 'updaterooms', this updates the room the client is in
+	socket.on('updaterooms', function(rooms, current_room, gameRoomInfo) {
+		$('#PUBG').empty();
+		$('#Fortnite').empty();
+		$('#League of Legends').empty();
+		$('#Overwatch').empty();
+		$('#World of Warcraft').empty();
+		$('#Dota 2').empty();
+		$('#CS:GO').empty();
+		$('#Hearthstone').empty();
+		$.each(rooms, function(key, value) {
+			var game = gameRoomInfo[value];
+			if(value == current_room && rooms.length > 1){
+				$('#'+game+'').append('<div>' + value + '</div>');
+			}
+			else {
+				$('#'+game+'').append('<div class="\''+value+'\'"><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
+			}
+		});
+	});
+
+	socket.on('addroom', function (roomName, roomDescription, gameRoomName) {
+		updateInformation(roomName, roomDescription, function(){
+			addNewRoom(roomName, gameRoomName, function(){
+			});
+		});
+	});
+
+	socket.on('makeVisible', function (roomName) {
+		document.getElementById("bodyContainer").style.display = "block";
+	});
+
+	socket.on('makeInVisible', function (roomName) {
+		document.getElementById("bodyContainer").style.display = "none";
+	});
+
+	function updateInformation(rName, rDescription, callback){
+		var info = [];
+		info.push(rName);
+		info.push(rDescription);
+		groupsInformation[rName] = info;
+		callback();
+	}
+
+	function addNewRoom(roomName, gameRoomName, callback) {
+		$('#'+gameRoomName+'').append('<div><a href="#" onclick="switchRoom(\''+roomName+'\')">' + roomName + '</a></div>');
+		callback();
+	}
+
+	function switchRoom(room){
+		var info = groupsInformation[room];
+		document.getElementById("individualGroupInfo").style.display = "block";
+		document.getElementById("individualGroupName").innerHTML = info[0];
+        document.getElementById("individualGroupDescription").innerHTML = info[1];
+		socket.emit('switchRoom', room);
+	}
+
+	
+	// on load of page
+	$(function(){
+		// when the client clicks SEND
+		$('#datasend').click( function() {
+			var message = $('#data').val();
+			$('#data').val('');
+			// tell server to execute 'sendchat' and send along one parameter
+			socket.emit('sendchat', message);
+		});
+
+		// when the client hits ENTER on their keyboard
+		$('#data').keypress(function(e) {
+			if(e.which == 13) {
+				$(this).blur();
+				$('#datasend').focus().click();
+			}
+		});
+	});
+
+</script>
+<body>
+	<div id="bodyContainer" style="display : block;">
+		<div id="individualGroupInfo" style="display : none;">
+		    <h3>Group Name:</h3>
+		    <p id="individualGroupName"></p>
+		    <h3>Group Description:</h3>
+		    <p id="individualGroupDescription"></p>
+		</div>
+		<div style="float:left;width:200px;border-right:1px solid black;height:325px;padding:10px;overflow:scroll-y;">
+			<b>Groups</b>
+			<div></div>
+			<b>PUBG</b>
+			<div id="PUBG"></div>
+			<b>Fortnite</b>
+			<div id="Fortnite"></div>
+			<b>League of Legends</b>
+			<div id="League of Legends"></div>
+			<b>Overwatch</b>
+			<div id="Overwatch"></div>
+			<b>World of Warcraft</b>
+			<div id="World of Warcraft"></div>
+			<b>Dota 2</b>
+			<div id="Dota 2"></div>
+			<b>CS:GO</b>
+			<div id="CS:GO"></div>
+			<b>Hearthstone</b>
+			<div id="Hearthstone"></div>
+		</div>
+		<div style="float:left;width:400px;height:275px;overflow:scroll-y;padding:10px;">
+			<div id="conversation"></div>
+			<input id="data" style="width:200px;" />
+			<input type="button" id="datasend" value="send" />
+		</div>
+
+	</div>
+</body>

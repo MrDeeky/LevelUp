@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .inner
+        {
+            width:100px;
+            display: inline-block;
+        }
+    </style>
+    <head>
+        <meta charset="utf-8">
+        <title>Active Groups</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div align="center" id="title">
+        <h3> Active Groups For Game </h3>
+        <div id="outer">
+        <div class="inner"><button type="submit" id="addGroup" onClick="return false;">Add Group</button></div>
+        </div>
+        </div>
+        <div id="GroupInformation" style="display : none;">
+        Game Name:<br>
+        <textarea id="gameName" placeholder="Enter Game As Shown Below" rows="1" cols="45"></textarea> <br>
+        Group Name:<br>
+        <textarea id="groupName" rows="1" cols="45"></textarea> <br>
+        Group Description:<br>
+        <textarea id="groupDescription" rows="4" cols="45"></textarea> <br>
+        </div>
+        <div class="inner" id="submit" style="display: none;"><button type="submit" id="createGroup" onClick="return false;">Create Group</button></div>
+    </body>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script>
+        var addGroupButton = document.getElementById("addGroup");
+        addGroupButton.addEventListener("click", function() {
+            document.getElementById("title").style.display = "none";
+            document.getElementById("GroupInformation").style.display = "block";
+            document.getElementById("outer").style.display = "none";
+            document.getElementById("submit").style.display = "block";
+        });
+        var submitButton = document.getElementById("submit");
+        submitButton.addEventListener("click", function() {
+            var groupName = document.getElementById("groupName").value;
+            var groupDescription = document.getElementById("groupDescription").value;
+            var gameName = document.getElementById("gameName").value;
+            $.post("http://localhost:3000/addRoom", {
+                        roomName: groupName,
+                        roomDescription: groupDescription,
+                        gameRoomName: gameName
+            });
+            document.getElementById("GroupInformation").style.display = "none";
+            document.getElementById("title").style.display = "block";
+            document.getElementById("outer").style.display = "block";
+            clearTextArea();
+            this.style.display = "none";
+        });
+        function clearTextArea() {
+            document.getElementById("groupName").value = "";
+            document.getElementById("groupDescription").value = "";
+        }
+    </script>
+</html>

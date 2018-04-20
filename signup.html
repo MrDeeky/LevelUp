@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>sign-up</title>
+</head>
+<style>
+    h1 {
+        font-size: 4em;
+    }
+    label {
+        font-size: 2em;
+        font-weight:bold;
+    }
+    button {
+        font-size: 2em;
+    }
+    input {
+        font-size: 2em;
+    }
+    table {
+        border-spacing: 20px;
+    }
+</style>
+<body>
+	<h1 align="center">Create an account!</h1>
+    <form method='post'>
+        <table align="center">
+        <tr>
+        <td><label for="name">Name:</label></td>
+        <td><input type="text" name="name" id="name" required><br></td>
+        </tr>
+        <tr>
+        <td><label for="username">Username:</label></td>
+        <td><input type="text" name="username" id="username" maxlength="12" required><br></td>
+        </tr>
+        <tr>
+        <td><label for="password">Password:</label></td>
+        <td><input type="password" name="password" id="password" maxlength="16" required><br></td>
+        </tr>
+        <tr>
+        <td><label for="email">E-mail:</label></td>
+        <td><input type="email" name="email" id="email" required><br></td>
+        </tr>
+        <tr id="submitButton">
+        <td colspan="2" align="center"><button type="submit" id="signUp">Sign Up</button><br></td>
+        </tr>
+        </table>
+    </form>
+</body>
+</html>

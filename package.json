@@ -1,0 +1,29 @@
+{
+  "name": "level-up-project",
+  "version": "1.0.0",
+  "description": "website that allows gamers to connect with each other",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12",
+    "socket.io": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-18s/assignment-3-_.git"
+  },
+  "author": "Dicky, Prince, Jordan, Nghiem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc309-18s/assignment-3-_/issues"
+  },
+  "homepage": "https://github.com/csc309-18s/assignment-3-_#readme"
+}

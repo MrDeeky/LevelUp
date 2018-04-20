@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<!-- Code for handling clicks for taskbar elements adapted from http://jsfiddle.net/r0e11z9p/ --> 
+<!-- angularJS code for UI adapted from https://scotch.io/tutorials/single-page-apps-with-angularjs-routing-and-templating -->
+
+<html ng-app="app">
+    <head>
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        
+        <script src="http://localhost:3000/min"></script>
+        <script src="http://localhost:3000/route"></script>
+        <script src="http://localhost:3000/main"></script>
+        <title>LevelUp!</title>
+    </head>
+    
+    <style>
+        figure{
+            display: inline-block;
+        }
+        .descriptionContainer {
+            overflow: hidden;
+        }
+    </style>
+
+    <body>
+        <div ng-controller="Test">
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand">LevelUp!</a>
+                        </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-click="show = 1"><a><i class="fas fa-gamepad"></i> Games</a></li>
+                        <li ng-click="show = 2"><a><i class="fas fa-gamepad"></i> Groups</a></li>
+                        <li ng-click="show = 3"><a><i class="fas fa-sign-in-alt"></i> Log-In</a></li>
+                        <li ng-click="show = 4"><a><i class="fas fa-user-plus"></i> Sign-Up</a></li>
+                    </ul>
+                    </div>
+                </nav>
+            
+            <div class="jumbotron text-center" ng-show="show==1">
+                    <h1 id="Title" align="center">Popular Games</h1>
+                    <div align="center">
+                        <!-- PUBG --> 
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-54979 onclick="setDescriptionPage('3030-54979');">
+                                <script type="text/javascript">                              
+                                    getImage('3030-54979');
+                                </script>
+                            </a>
+                        </figure>
+                        
+                        <!-- Fortnite -->
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-37030 onclick="setDescriptionPage('3030-37030');">
+                                <script type="text/javascript">
+                                    getImage('3030-37030');
+                                </script>
+                            </a>
+                        </figure>
+                        
+                        <!-- League of Legends -->
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-24024 onclick="setDescriptionPage('3030-24024');">
+                                <script type="text/javascript">
+                                    getImage('3030-24024');
+                                </script>
+                            </a>
+                        </figure>
+                        
+                        <!-- Overwatch -->
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-48190 onclick="setDescriptionPage('3030-48190');">
+                                <script type="text/javascript">
+                                    getImage('3030-48190');
+                                </script>
+                            </a>
+                        </figure>
+                        
+                        <!-- World of Warcraft -->
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-19783 onclick="setDescriptionPage('3030-19783');">
+                                <script type="text/javascript">
+                                    getImage('3030-19783');
+                                </script>
+                            </a>
+                        </figure>
+                        
+                        <!-- Dota 2 -->
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-32887 onclick="setDescriptionPage('3030-32887');">
+                                <script type="text/javascript">
+                                    getImage('3030-32887');
+                                </script>
+                            </a>
+                        </figure>
+                        
+                        <!-- CS:GO -->
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-36113 onclick="setDescriptionPage('3030-36113');">
+                                <script type="text/javascript">
+                                    getImage('3030-36113');
+                                </script>
+                            </a>
+                        </figure>
+                        
+                        <!-- Hearthstone -->
+                        <figure>
+                            <a href="" ng-click="show = 5" id=3030-42033 onclick="setDescriptionPage('3030-42033');">
+                                <script type="text/javascript">
+                                    getImage('3030-42033');
+                                </script>
+                            </a>
+                        </figure>
+                    </div>
+            </div>
+
+            <div class="jumbotron text-center" ng-show="show==2" id="groupsPage">
+                <div id="groupsWindow" style="display: block;">
+                    <iframe width=700 height=200 src="http://localhost:3000/groups" frameborder="0" allowfullscreen scrolling="no"></iframe>
+                </div>
+
+                <div id="chatWindow" style="display: block;">
+                    <iframe width=700 height=550 src="http://localhost:3000/chatRoom" frameborder="0"></iframe>
+                </div>
+            </div>
+            
+            <div class="jumbotron text-center" ng-show="show==3" id="loginPage">
+                <iframe width=700 height=500 src="http://localhost:3000/login" frameborder="0" allowfullscreen scrolling="no"></iframe>
+            </div>
+            
+            <div class="jumbotron text-center" ng-show="show==4" id="signupPage">
+                <iframe width=700 height=500 src="http://localhost:3000/signup" frameborder="0" allowfullscreen scrolling="no"></iframe>
+            </div>
+
+            <div class="jumbotron" ng-show="show==5">
+                <h1 id="descriptionTitle" align="center"></h1>
+                <div id="images" align="center"></div>
+                <div class="descriptionContainer" id="description"></div>
+            </div>
+
+        </div>
+  </body>
+</html>
